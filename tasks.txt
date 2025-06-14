@@ -1,0 +1,79 @@
+# Swarm-Based Traffic Optimization: Development Checklist
+
+This checklist tracks implementation progress for each major module or feature.
+**Mark steps as completed (`[x]`) as you work. Add notes or dates as needed.**
+
+---
+
+## Legend
+
+- `[x]` — Completed
+- `[ ]` — Not started or in progress
+
+---
+
+## Development Steps
+
+### 1. Define Scope and Objectives
+- [x] List all supported optimization objectives.
+- [x] Define scenario complexity and key parameters.
+- [x] Outline success criteria for optimization and sensitivity analysis.
+
+### 2. Design Project Architecture
+- [x] Specify modular components and interfaces.
+- [x] Draw data flow and define file/folder structure.
+
+### 3. Implement Configuration Layer
+- [x] Create YAML/JSON config files for scenarios, optimizers, and objectives.
+- [x] Develop Python config loader with CLI overrides and validation.
+
+### 4. Develop Scenario Generator
+- [x] Write code to generate/load traffic networks (grid, etc.).
+- [x] Parameterize scenario elements: network size, traffic demand, events.
+
+### 5. Integrate Simulation Engine(s)
+- [x] Implement standard Python interface for simulation backends (`sim_interface.py`).
+- [x] Add and test SUMO backend (`sumo_engine.py`, `sumo_scenario_builder.py`).
+- [ ] Add support for CityFlow or custom backend (optional).
+- [ ] Confirm SUMO backend runs scenarios, accepts control params, and outputs metrics.
+
+### 6. Build Swarm Optimizer Module
+- [ ] Write modular interfaces for optimizers (`optimizer_interface.py`).
+- [ ] Implement at least one algorithm (e.g., PSO).
+- [ ] Ensure optimizer can query objective, update solutions, and interact with simulation.
+
+### 7. Implement Objective Function Module
+- [ ] Write all supported objective functions (`objectives.py`).
+- [ ] Enable dynamic selection of objective via config.
+- [ ] Ensure objectives receive simulation results and return scalar fitness.
+
+### 8. Develop Sensitivity Analysis Module
+- [ ] Integrate with sensitivity libraries (SALib).
+- [ ] Automate repeated optimization runs with parameter sampling.
+- [ ] Record results for analysis.
+
+### 9. Results Logging and Visualization
+- [ ] Log experiment results to files (CSV, JSON).
+- [ ] Implement plotting/visualization (matplotlib/seaborn).
+- [ ] Generate reports on optimization and sensitivity findings.
+
+### 10. CLI/Experiment Runner
+- [ ] Create main entry point (`cli.py`) for running experiments from config/CLI.
+- [ ] Handle scenario setup, optimizer launch, and results collection.
+
+### 11. Testing, Documentation, and Extensibility
+- [x] Write unit and integration tests for existing modules.
+- [ ] Write tests for new modules as you build.
+- [ ] Complete documentation and user instructions (README).
+- [ ] Ensure clear API for adding new objectives, optimizers, or backends.
+
+---
+
+## Notes / Progress Log
+
+- 2025-06-14: Steps 1–4 completed and tested. SUMO engine implemented and tested. Ready for optimizer and objectives.
+- Add a date or initials after each `[x]` if you want to track who/when.
+
+---
+
+**Edit this file as you progress!**
