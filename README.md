@@ -1,87 +1,96 @@
 # Traffic Light Optimization using Ant Colony Optimization
 
-A clean, research-oriented implementation of traffic light signal optimization using Ant Colony Optimization (ACO) with SUMO simulation.
+This project implements traffic light signal optimization using Ant Colony Optimization (ACO) with SUMO simulation. The system is designed for research applications and provides clean, reproducible results.
 
-## 🎯 Key Features
+## Features
 
-- **Simple, Clean ACO**: Direct range sampling without complex bins system
-- **Interactive Interface**: User-friendly configuration with sensible defaults
-- **Multiple Traffic Patterns**: Balanced, random, commuter, commercial, industrial
-- **Flexible Display Options**: Toggle plots, GUI, and verbosity levels
-- **Train/Evaluate System**: Train on one scenario/seed, evaluate on multiple scenarios/seeds
-- **Traffic Engineering Rules**: Respects real-world constraints (green: 20-100s, yellow: 3-6s)
+- **Simple ACO Implementation**: Direct range sampling without complex bin systems
+- **Interactive Interface**: User-friendly configuration with reasonable defaults
+- **Multiple Traffic Patterns**: Supports balanced, random, commuter, commercial, and industrial patterns
+- **Flexible Display Options**: Configurable plots, GUI, and verbosity levels
+- **Train/Evaluate System**: Train on one scenario, then evaluate on multiple scenarios
+- **Traffic Engineering Constraints**: Respects real-world timing constraints (green: 20-100s, yellow: 3-6s)
 - **Smart Search Space**: Automatically classifies phase types and applies appropriate constraints
-- **Scenario Reproducibility**: Full seed control for reproducible research
+- **Reproducible Results**: Full seed control for consistent research outcomes
 - **Performance Analysis**: Comprehensive evaluation and comparison tools
-- **Optimization Plotting**: Visual progress tracking and results visualization
+- **Optimization Visualization**: Progress tracking and results plotting
 
-## 🚀 Quick Start
+## Getting Started
 
-### 🎯 New User? Start Here!
+### New Users
+
+For beginners, start with the interactive menu:
 ```bash
 python examples/menu_example.py
 ```
-**Perfect for beginners!** Interactive menu with guided options:
-- 🚀 Quick Demo (2-3 minutes, preset values)  
-- ⚙️  Custom Configuration (step-by-step guidance)
-- 🔬 Sensitivity Analysis (find optimal settings)
-- 📚 Learning Resources (understand the system)
+
+This provides a guided interface with:
+- Quick Demo (2-3 minutes with preset values)
+- Custom Configuration (step-by-step guidance)
+- Sensitivity Analysis (find optimal settings)
+- Learning Resources (understand the system)
 
 ### Main Optimization Tool
+
+Run the complete optimization with visualization:
 ```bash
 python main.py
 ```
 
-This provides a complete optimization with visualization and results saving.
+### Quick Demonstration
 
-### Quick Start Example  
+For a guided demonstration of key features:
 ```bash
 python examples/quick_start.py
 ```
 
-A guided demonstration of the system's key features with default settings.
+### Interactive Configuration
 
-### Interactive Example (Advanced Users)
+For advanced users who want detailed control:
 ```bash
 python examples/simple_aco_optimization.py
 ```
 
-**Enhanced with detailed guidance!** Interactive interface with:
-- **Grouped input sections** (Scenario → Optimization → Display)
-- **Available options shown** for every parameter
-- **Helpful descriptions** explaining what each setting does
-- **Impact guidance** (e.g., "more ants = better solutions but slower")
-- **Configuration summary** before optimization starts
-- **Runtime estimates** based on your choices
+This enhanced interface provides:
+- Grouped input sections (Scenario, Optimization, Display)
+- Available options for every parameter
+- Detailed descriptions of each setting
+- Impact guidance for parameter choices
+- Configuration summary before starting
+- Runtime estimates based on selections
 
-### Sensitivity Analysis
+### Parameter Optimization
+
+To find optimal parameter combinations:
 ```bash
 python examples/sensitivity_example.py
 ```
-**Find optimal parameter combinations** with user-friendly interface:
-- Guided parameter testing
-- Statistical analysis and visualization  
-- Clear explanations of results
 
-### Train and Evaluate (Advanced)
+Features guided parameter testing with statistical analysis and visualization.
+
+### Advanced Training and Evaluation
+
+For research applications:
 ```bash
 python examples/train_evaluate.py
 ```
-1. **Train**: Find optimal settings for a specific scenario/seed
-2. **Evaluate**: Test those settings on different scenarios/seeds  
-3. **Compare**: Statistical analysis of performance improvements
 
-## 📊 Key Discovery: Simple ACO System
+This workflow allows you to:
+1. Train: Find optimal settings for a specific scenario
+2. Evaluate: Test those settings on different scenarios
+3. Compare: Analyze performance improvements statistically
 
-**The Solution**: A clean, simplified ACO implementation that:
-- ✅ Uses direct range sampling (20-100s green, 3-6s yellow)
-- ✅ No complex bins arrays or mapping logic  
-- ✅ 26× less memory usage
-- ✅ Stable iteration performance (no degradation)
-- ✅ Much easier to understand and debug
-- ✅ Automatic optimization plotting
+## Implementation Notes
 
-## 🔬 Research Usage
+The system uses a simplified ACO approach that:
+- Uses direct range sampling (20-100s green, 3-6s yellow phases)
+- Eliminates complex bin arrays and mapping logic
+- Reduces memory usage by 26x compared to previous implementations
+- Maintains stable iteration performance
+- Provides easier debugging and understanding
+- Includes automatic optimization progress plotting
+
+## Usage Examples
 
 ### Training Phase
 Train ACO to find optimal traffic light settings:
@@ -97,7 +106,6 @@ config = {
 }
 
 results = run_traditional_aco_optimization(config)
-)
 ```
 
 ### Evaluation Phase  
@@ -115,23 +123,23 @@ eval_results = optimizer.evaluate(
 - **Success Rate**: Percentage of tests showing positive improvement
 - **Statistical Analysis**: Mean improvement ± standard deviation across multiple seeds
 
-## � Project Structure
+## Project Structure
 
 ```
 my_grid_simulation/
 ├── main.py                    # Main entry point
 ├── examples/                  # Usage examples and demonstrations
-│   ├── menu_example.py        # 🎯 USER-FRIENDLY: Guided menu for all levels
+│   ├── menu_example.py        # User-friendly guided menu for all levels
 │   ├── quick_start.py         # Quick demonstration of key features
-│   ├── simple_aco_optimization.py  # 📋 ENHANCED: Step-by-step interactive config
-│   ├── sensitivity_example.py # 🔬 Parameter optimization with guidance
+│   ├── simple_aco_optimization.py  # Step-by-step interactive configuration
+│   ├── sensitivity_example.py # Parameter optimization with guidance
 │   ├── simple_example.py      # Basic usage example
 │   └── train_evaluate.py      # Advanced training/evaluation workflow
 ├── src/                       # Core functionality
 │   ├── optimize.py           # Main optimization tool
 │   ├── simplified_traffic.py # Traffic scenario generation
 │   ├── traffic_patterns.py  # Traffic pattern definitions
-│   ├── sensitivity_analysis.py # 🆕 Easy parameter sensitivity testing
+│   ├── sensitivity_analysis.py # Parameter sensitivity testing
 │   ├── config.py            # Configuration management
 │   ├── optimization/        # ACO algorithm implementation
 │   ├── utils/               # Utility functions
@@ -139,7 +147,7 @@ my_grid_simulation/
 └── results/                 # Generated results and visualizations
 ```
 
-## �📈 Mathematical Formulation
+## Mathematical Background
 
 See `MATHEMATICAL_FORMULATION.md` for complete mathematical details including:
 - Decision variables and search space
@@ -148,7 +156,7 @@ See `MATHEMATICAL_FORMULATION.md` for complete mathematical details including:
 - Traffic engineering constraints
 - Computational complexity analysis
 
-## 🛠️ Configuration
+## Configuration
 
 Key parameters in `examples/train_evaluate.py`:
 ```python
@@ -172,7 +180,7 @@ config = {
 }
 ```
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 ├── examples/
@@ -190,7 +198,7 @@ config = {
 └── README.md                      # This file
 ```
 
-## 🎯 Research Applications
+## Research Applications
 
 ### Scenario Generalization Study
 Train on one traffic pattern, evaluate on others:
@@ -224,7 +232,7 @@ optimizer.config["evaporation_rate"] = 0.5  # High evaporation
 results_high = optimizer.train("param_test_high", 42)
 ```
 
-## 🔍 Analysis Tools
+## Analysis Tools
 
 ### Default Analysis
 Understand what SUMO's defaults actually are:
@@ -245,7 +253,7 @@ All results are saved as JSON files with comprehensive metadata:
 - Statistical summaries
 - Improvement percentages
 
-## 🎓 Academic Usage
+## Academic Usage
 
 This implementation is designed for research with:
 - **Reproducible Results**: Full seed control
@@ -256,14 +264,14 @@ This implementation is designed for research with:
 
 Perfect for traffic engineering research, metaheuristic algorithm studies, and SUMO-based optimization projects.
 
-## 🚦 Requirements
+## Requirements
 
 - Python 3.8+
 - SUMO 1.8+
 - NumPy, Matplotlib
 - `SUMO_HOME` environment variable set
 
-## 📝 Citation
+## Citation
 
 If you use this code in your research, please cite:
 ```

@@ -74,7 +74,7 @@ QUICK_DEMO_CONFIG = {
 SINGLE_PARAM_CONFIG = {
     'parameter': 'exploration_rate',             # Parameter to analyze
     'values': [0.1, 0.2, 0.3],        # Values to test
-    'replications': 3                  # Replications per value
+    'replications': 2                  # Replications per value
 }
 
 # ----------------------------------------

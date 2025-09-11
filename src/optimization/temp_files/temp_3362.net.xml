@@ -330,46 +330,46 @@
     </edge>
 
     <tlLogic id="A0" type="static" programID="0" offset="0">
-        <phase duration="90" state="GG" />
+        <phase duration="86" state="GG" />
     </tlLogic>
     <tlLogic id="A1" type="static" programID="0" offset="0">
-        <phase duration="68" state="GggrrrGGg" />
-        <phase duration="4" state="yyyrrrGyy" />
-        <phase duration="20" state="rrrGGgGrr" />
-        <phase duration="3" state="rrryyyGrr" />
+        <phase duration="96" state="GggrrrGGg" />
+        <phase duration="3" state="yyyrrrGyy" />
+        <phase duration="51" state="rrrGGgGrr" />
+        <phase duration="4" state="rrryyyGrr" />
     </tlLogic>
     <tlLogic id="A2" type="static" programID="0" offset="0">
-        <phase duration="45" state="GG" />
+        <phase duration="28" state="GG" />
     </tlLogic>
     <tlLogic id="B0" type="static" programID="0" offset="0">
         <phase duration="18" state="rrrGGgGgg" />
         <phase duration="3" state="rrrGyyyyy" />
-        <phase duration="52" state="GGgGrrrrr" />
+        <phase duration="72" state="GGgGrrrrr" />
         <phase duration="3" state="yyyGrrrrr" />
     </tlLogic>
     <tlLogic id="B1" type="static" programID="0" offset="0">
-        <phase duration="18" state="GGggrrrrGGggrrrr" />
-        <phase duration="3" state="yyyyrrrryyyyrrrr" />
+        <phase duration="72" state="GGggrrrrGGggrrrr" />
+        <phase duration="4" state="yyyyrrrryyyyrrrr" />
         <phase duration="17" state="rrrrGGggrrrrGGgg" />
         <phase duration="4" state="rrrryyyyrrrryyyy" />
     </tlLogic>
     <tlLogic id="B2" type="static" programID="0" offset="0">
-        <phase duration="90" state="GggrrrGGg" />
+        <phase duration="23" state="GggrrrGGg" />
         <phase duration="4" state="yyyrrrGyy" />
-        <phase duration="31" state="rrrGGgGrr" />
+        <phase duration="64" state="rrrGGgGrr" />
         <phase duration="4" state="rrryyyGrr" />
     </tlLogic>
     <tlLogic id="C0" type="static" programID="0" offset="0">
-        <phase duration="30" state="GG" />
+        <phase duration="75" state="GG" />
     </tlLogic>
     <tlLogic id="C1" type="static" programID="0" offset="0">
-        <phase duration="19" state="GGgGggrrr" />
+        <phase duration="26" state="GGgGggrrr" />
         <phase duration="3" state="Gyyyyyrrr" />
-        <phase duration="45" state="GrrrrrGGg" />
+        <phase duration="38" state="GrrrrrGGg" />
         <phase duration="4" state="Grrrrryyy" />
     </tlLogic>
     <tlLogic id="C2" type="static" programID="0" offset="0">
-        <phase duration="88" state="GG" />
+        <phase duration="31" state="GG" />
     </tlLogic>
 
     <junction id="A0" type="traffic_light" x="0.00" y="0.00" incLanes="A1A0_0 B0A0_0" intLanes=":A0_0_0 :A0_1_0" shape="-3.20,3.20 3.20,3.20 3.20,-3.20 -0.36,-2.49 -1.60,-1.60 -2.49,-0.36 -3.02,1.24">

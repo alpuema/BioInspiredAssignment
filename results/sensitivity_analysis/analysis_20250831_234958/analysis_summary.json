@@ -1,0 +1,68 @@
+{
+  "analysis_metadata": {
+    "total_runs": 6,
+    "successful_runs": 6,
+    "analysis_time_seconds": 366.20124983787537,
+    "parameter_ranges": {
+      "exploration_rate": [
+        0.1,
+        0.2,
+        0.3
+      ]
+    }
+  },
+  "best_configuration": {
+    "parameters": {
+      "exploration_rate": 0.2
+    },
+    "mean_cost": 127.87999999999998,
+    "std_cost": 5.999999999999986,
+    "mean_improvement": 0.0
+  },
+  "parameter_statistics": {
+    "[('exploration_rate', 0.1)]": {
+      "parameters": {
+        "exploration_rate": 0.1
+      },
+      "n_replications": 2,
+      "cost_mean": 134.7,
+      "cost_std": 5.819999999999979,
+      "cost_min": 128.88,
+      "cost_max": 140.51999999999995,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('exploration_rate', 0.2)]": {
+      "parameters": {
+        "exploration_rate": 0.2
+      },
+      "n_replications": 2,
+      "cost_mean": 127.87999999999998,
+      "cost_std": 5.999999999999986,
+      "cost_min": 121.88,
+      "cost_max": 133.87999999999997,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('exploration_rate', 0.3)]": {
+      "parameters": {
+        "exploration_rate": 0.3
+      },
+      "n_replications": 2,
+      "cost_mean": 167.29999999999998,
+      "cost_std": 6.539999999999992,
+      "cost_min": 160.76,
+      "cost_max": 173.83999999999997,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    }
+  },
+  "overall_statistics": {
+    "mean_cost_across_all": 143.29333333333332,
+    "std_cost_across_all": 18.26088959741252,
+    "mean_improvement_across_all": 0.0
+  }
+}
