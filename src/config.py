@@ -145,23 +145,23 @@ class Config:
             try:
                 import shutil
                 shutil.rmtree(dir_path)
-                print(f"🧹 Cleaned up old temp directory: {dir_name}")
+                print(f" Cleaned up old temp directory: {dir_name}")
             except Exception as e:
-                print(f"⚠️ Could not remove temp directory {dir_name}: {e}")
+                print(f" Could not remove temp directory {dir_name}: {e}")
     
     def set_traffic_pattern(self, pattern_name: str):
         """Set the traffic pattern for vehicle generation."""
         if pattern_name in self.traffic_patterns or pattern_name == "custom":
             self.traffic_pattern = pattern_name
             if pattern_name == "custom":
-                print(f"🚦 Traffic pattern set to: {pattern_name}")
+                print(f" Traffic pattern set to: {pattern_name}")
                 print(f"   User-defined custom pattern (configure with set_custom_traffic_sources)")
             else:
-                print(f"🚦 Traffic pattern set to: {pattern_name}")
+                print(f" Traffic pattern set to: {pattern_name}")
                 print(f"   {self.traffic_patterns[pattern_name]['description']}")
         else:
             available = list(self.traffic_patterns.keys()) + ["custom"]
-            print(f"❌ Unknown traffic pattern: {pattern_name}")
+            print(f" Unknown traffic pattern: {pattern_name}")
             print(f"   Available patterns: {', '.join(available)}")
     
     def set_custom_traffic_sources(self, sources: Dict[str, float], sinks: Dict[str, float] = None):
@@ -182,7 +182,7 @@ class Config:
         self.traffic_pattern = "custom"
         self.custom_sources = sources
         self.custom_sinks = sinks or sources
-        print(f"🎯 Custom traffic pattern configured")
+        print(f" Custom traffic pattern configured")
         print(f"   Sources: {sources}")
         print(f"   Sinks: {self.custom_sinks}")
     
@@ -203,13 +203,13 @@ class Config:
         print("🚦 Available Traffic Patterns:")
         print("=" * 50)
         for name, info in self.traffic_patterns.items():
-            status = "✅" if name == self.traffic_pattern else "  "
+            status = "" if name == self.traffic_pattern else "  "
             print(f"{status} {name:12} - {info['description']}")
         
         if self.traffic_pattern == "custom":
-            print(f"✅ {'custom':12} - User-defined pattern")
+            print(f" {'custom':12} - User-defined pattern")
         
-        print("\n💡 Usage:")
+        print("\n Usage:")
         print("   config.set_traffic_pattern('commuter')")
         print("   config.set_custom_traffic_sources({'north_*': 3.0, 'south_*': 1.0})")
 

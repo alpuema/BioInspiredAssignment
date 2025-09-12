@@ -2,11 +2,10 @@
 """
 Sensitivity Analysis Wrapper for Traffic Light Optimization
 
-This module provides easy-to-use wrapper functions for conducting sensitivity 
-analysis on different optimization parameters. It supports parameter sweeps
-across multiple dimensions and generates comprehensive reports.
+This module provides wrapper functions for conducting sensitivity 
+analysis on different optimization parameters.
 
-Author: Traffic Optimization System  
+Author: Alfonso Rato 
 Date: August 2025
 """
 
@@ -71,7 +70,7 @@ def run_sensitivity_analysis(
         >>> results = run_sensitivity_analysis(param_ranges, base_config)
     """
     
-    print("🔬 SENSITIVITY ANALYSIS")
+    print(" SENSITIVITY ANALYSIS")
     print("=" * 60)
     
     # Setup output directory
@@ -80,13 +79,13 @@ def run_sensitivity_analysis(
         output_dir = os.path.join("results", "sensitivity_analysis", f"analysis_{timestamp}")
     
     os.makedirs(output_dir, exist_ok=True)
-    print(f"📁 Output directory: {output_dir}")
+    print(f" Output directory: {output_dir}")
     
     # Generate all parameter combinations
     param_combinations = _generate_parameter_combinations(parameter_ranges)
     total_runs = len(param_combinations) * n_replications
     
-    print(f"📊 Analysis Configuration:")
+    print(f" Analysis Configuration:")
     print(f"   Parameters: {list(parameter_ranges.keys())}")
     print(f"   Combinations: {len(param_combinations)}")
     print(f"   Replications per combination: {n_replications}")
@@ -97,13 +96,13 @@ def run_sensitivity_analysis(
     start_time = time.time()
     
     if parallel and len(param_combinations) > 1:
-        print("🚀 Running analysis in parallel...")
+        print(" Running analysis in parallel...")
         results = _run_parallel_analysis(
             param_combinations, base_config, n_replications, 
             output_dir, max_workers, show_individual_plots
         )
     else:
-        print("🔄 Running analysis sequentially...")
+        print(" Running analysis sequentially...")
         results = _run_sequential_analysis(
             param_combinations, base_config, n_replications, output_dir, show_individual_plots
         )
@@ -126,9 +125,9 @@ def run_sensitivity_analysis(
     # Generate visualizations
     plot_files = _generate_sensitivity_plots(results, parameter_ranges, output_dir, show_final_plot)
     
-    print(f"✅ Sensitivity analysis completed in {analysis_time:.1f} seconds")
-    print(f"📊 Results saved to: {output_dir}")
-    print(f"📈 Generated {len(plot_files)} visualization plots")
+    print(f" Sensitivity analysis completed in {analysis_time:.1f} seconds")
+    print(f" Results saved to: {output_dir}")
+    print(f" Generated {len(plot_files)} visualization plots")
     
     return {
         'results': results,
@@ -201,7 +200,7 @@ def _run_sequential_analysis(param_combinations, base_config, n_replications, ou
     results = []
     
     for i, params in enumerate(param_combinations):
-        print(f"\n📋 Parameter combination {i+1}/{len(param_combinations)}: {params}")
+        print(f"\n Parameter combination {i+1}/{len(param_combinations)}: {params}")
         
         # Update base config with current parameters
         config = base_config.copy()
@@ -222,7 +221,7 @@ def _run_sequential_analysis(param_combinations, base_config, n_replications, ou
                 combination_results.append(result)
                 
             except Exception as e:
-                print(f"   ❌ Replication {rep+1} failed: {e}")
+                print(f"    Replication {rep+1} failed: {e}")
                 continue
         
         results.extend(combination_results)
@@ -269,10 +268,10 @@ def _run_parallel_analysis(param_combinations, base_config, n_replications, outp
                 results.append(result)
                 
                 completed += 1
-                print(f"   ✅ Completed {completed}/{len(run_configs)} runs")
+                print(f"    Completed {completed}/{len(run_configs)} runs")
                 
             except Exception as e:
-                print(f"   ❌ Run failed: {e}")
+                print(f"    Run failed: {e}")
                 continue
     
     return results
@@ -388,7 +387,7 @@ def _generate_sensitivity_plots(results: List[Dict], parameter_ranges: Dict, out
             if plot_file:
                 plot_files.append(plot_file)
         except Exception as e:
-            print(f"⚠️  Failed to create plot for {param_name}: {e}")
+            print(f"  Failed to create plot for {param_name}: {e}")
     
     # Create summary comparison plot if multiple parameters
     if len(parameter_ranges) > 1:
@@ -397,7 +396,7 @@ def _generate_sensitivity_plots(results: List[Dict], parameter_ranges: Dict, out
             if summary_plot:
                 plot_files.append(summary_plot)
         except Exception as e:
-            print(f"⚠️  Failed to create summary plot: {e}")
+            print(f"  Failed to create summary plot: {e}")
     
     return plot_files
 
@@ -491,34 +490,3 @@ def _create_summary_plot(results: List[Dict], parameter_ranges: Dict, output_dir
         plt.close()
     
     return plot_file
-
-
-if __name__ == "__main__":
-    # Example usage
-    print("🔬 Sensitivity Analysis Module")
-    print("Example usage:")
-    print()
-    
-    example_code = '''
-    from sensitivity_analysis import run_sensitivity_analysis, run_simple_parameter_sweep
-    
-    # Define base configuration
-    base_config = {
-        'grid_size': 3,
-        'n_vehicles': 30, 
-        'simulation_time': 600,
-        'traffic_pattern': 'commuter'
-    }
-    
-    # Multi-parameter analysis
-    param_ranges = {
-        'n_ants': [10, 20, 30],
-        'n_iterations': [5, 10, 15]  
-    }
-    results = run_sensitivity_analysis(param_ranges, base_config, n_replications=3)
-    
-    # Single-parameter analysis  
-    results = run_simple_parameter_sweep('n_ants', [5, 10, 20, 30], base_config)
-    '''
-    
-    print(example_code)

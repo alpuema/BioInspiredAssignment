@@ -63,7 +63,7 @@ def generate_multi_seed_scenarios(base_config, training_seeds):
     
     scenarios = []
     
-    print_progress(f"🌱 Generating {len(training_seeds)} training scenarios...")
+    print_progress(f" Generating {len(training_seeds)} training scenarios...")
     
     for i, seed in enumerate(training_seeds):
         print_progress(f"   Seed {i+1}/{len(training_seeds)}: {seed}")
@@ -84,9 +84,9 @@ def generate_multi_seed_scenarios(base_config, training_seeds):
                 'files': scenario['files'],
                 'weight': 1.0  # Initial equal weighting
             })
-            print_progress(f"   ✅ Scenario {i+1} ready")
+            print_progress(f"    Scenario {i+1} ready")
         else:
-            print_progress(f"   ❌ Failed to generate scenario for seed {seed}")
+            print_progress(f"    Failed to generate scenario for seed {seed}")
     
     return scenarios
 
@@ -98,7 +98,7 @@ def cleanup_scenario_files(scenarios):
             if os.path.exists(seed_dir):
                 shutil.rmtree(seed_dir)
         except Exception as e:
-            print_progress(f"⚠️  Warning: Could not clean up scenario files: {e}")
+            print_progress(f"  Warning: Could not clean up scenario files: {e}")
 
 # ============================================================================
 # ROBUST EVALUATION FUNCTIONS
@@ -160,7 +160,7 @@ def evaluate_solution_multi_seed(solution, scenarios, temp_dir):
                     os.remove(temp_file)
                     
         except Exception as e:
-            print_progress(f"   ⚠️  Evaluation failed for seed {seed}: {e}")
+            print_progress(f"     Evaluation failed for seed {seed}: {e}")
     
     # Aggregate results across seeds
     if valid_evaluations == 0:
@@ -434,11 +434,11 @@ def evaluate_robust_baseline_comparison(best_solution, phase_types, scenarios, t
     print_progress(f"   Optimized solution: Cost = {optimized_cost:.1f} (evaluated on {optimized_seeds}/{total_seeds} seeds)")
     
     if improvement_percent > 0:
-        print_progress(f"   ✅ Robust Improvement: {improvement_percent:.1f}% better ({absolute_improvement:.1f} cost units)")
+        print_progress(f"    Robust Improvement: {improvement_percent:.1f}% better ({absolute_improvement:.1f} cost units)")
     elif improvement_percent < 0:
-        print_progress(f"   ❌ Degradation: {abs(improvement_percent):.1f}% worse ({abs(absolute_improvement):.1f} cost units)")
+        print_progress(f"    Degradation: {abs(improvement_percent):.1f}% worse ({abs(absolute_improvement):.1f} cost units)")
     else:
-        print_progress(f"   ➖ No significant difference")
+        print_progress(f"    No significant difference")
     
     return comparison_results
 
@@ -514,10 +514,10 @@ def run_robust_aco_optimization(
         scenarios = generate_multi_seed_scenarios(base_config, training_seeds)
         
         if not scenarios:
-            print_progress("❌ Failed to generate any training scenarios")
+            print_progress(" Failed to generate any training scenarios")
             return {'success': False, 'error': 'No valid scenarios generated'}
         
-        print_progress(f"✅ Generated {len(scenarios)} training scenarios")
+        print_progress(f" Generated {len(scenarios)} training scenarios")
         
         # Use first scenario to analyze traffic light structure
         sample_net_file = scenarios[0]['files']['network']
@@ -537,7 +537,7 @@ def run_robust_aco_optimization(
         global_best_solution = None
         global_best_metrics = None
         
-        print_progress("🔄 Starting robust optimization iterations...")
+        print_progress(" Starting robust optimization iterations...")
         start_time = time.time()
         
         # Main robust ACO loop
@@ -570,7 +570,7 @@ def run_robust_aco_optimization(
                     global_best_cost = cost
                     global_best_solution = solution.copy()
                     global_best_metrics = metrics
-                    print_progress(f"   🌟 NEW ROBUST BEST: Ant {ant+1}, cost: {cost:.1f}")
+                    print_progress(f"    NEW ROBUST BEST: Ant {ant+1}, cost: {cost:.1f}")
                 
                 # Progress reporting
                 avg_vehicles = metrics.get('vehicles', 0)
@@ -611,13 +611,13 @@ def run_robust_aco_optimization(
                 if isinstance(global_best_metrics, dict):
                     best_metrics_history.append(global_best_metrics)
                 else:
-                    print_progress(f"⚠️  Unexpected metrics type: {type(global_best_metrics)}")
+                    print_progress(f"  Unexpected metrics type: {type(global_best_metrics)}")
                     best_metrics_history.append({'total_time': 0, 'max_stop': 0, 'vehicles': 0})
             else:
                 best_metrics_history.append({'total_time': 0, 'max_stop': 0, 'vehicles': 0})
         
         duration = time.time() - start_time
-        print_progress(f"✅ Robust optimization completed in {duration:.1f} seconds")
+        print_progress(f" Robust optimization completed in {duration:.1f} seconds")
         
         # Robust baseline comparison
         baseline_comparison = None
@@ -669,7 +669,7 @@ def run_robust_aco_optimization(
         }
         
     except Exception as e:
-        print_progress(f"❌ Robust optimization failed: {e}")
+        print_progress(f" Robust optimization failed: {e}")
         print_progress(f"   Error type: {type(e)}")
         import traceback
         print_progress(f"   Traceback: {traceback.format_exc()}")
@@ -755,7 +755,7 @@ def create_robust_optimization_plot(best_costs, best_metrics_history, scenarios,
     # Save plot
     plot_path = os.path.join(paths['results'], 'robust_aco_optimization_progress.png')
     plt.savefig(plot_path, dpi=150, bbox_inches='tight')
-    print_progress(f"📊 Robust optimization plot saved to: {plot_path}")
+    print_progress(f" Robust optimization plot saved to: {plot_path}")
     
     # Just show the plot by default - the caller controls whether plots are shown
     plt.show()
@@ -785,7 +785,7 @@ def validate_robust_solution(solution, phase_types, base_config, validation_seed
     if temp_dir is None:
         temp_dir = get_project_paths()['temp']
     
-    print_progress(f"🔍 Validating solution on {len(validation_seeds)} new seeds...")
+    print_progress(f" Validating solution on {len(validation_seeds)} new seeds...")
     
     # Generate validation scenarios
     validation_scenarios = generate_multi_seed_scenarios(base_config, validation_seeds)
@@ -822,7 +822,7 @@ def validate_robust_solution(solution, phase_types, base_config, validation_seed
             'avg_vehicles_completed': validation_metrics.get('vehicles', 0)
         }
         
-        print_progress(f"📊 VALIDATION RESULTS:")
+        print_progress(f" VALIDATION RESULTS:")
         print_progress(f"   Validation Cost: {validation_cost:.1f}")
         print_progress(f"   Baseline Validation: {baseline_val_cost:.1f}")
         print_progress(f"   Validation Improvement: {val_improvement:.1f}%")
@@ -831,7 +831,7 @@ def validate_robust_solution(solution, phase_types, base_config, validation_seed
         return results
         
     except Exception as e:
-        print_progress(f"❌ Validation failed: {e}")
+        print_progress(f" Validation failed: {e}")
         if 'validation_scenarios' in locals():
             cleanup_scenario_files(validation_scenarios)
         return {'success': False, 'error': str(e)}
@@ -970,7 +970,7 @@ class RobustACOTrafficOptimizer:
 
 if __name__ == "__main__":
     # Example of how to use the robust ACO
-    print("🧪 TESTING ROBUST ACO")
+    print(" TESTING ROBUST ACO")
     
     # Test configuration
     config = {
@@ -985,8 +985,8 @@ if __name__ == "__main__":
     results = run_robust_aco_optimization(config=config, compare_baseline=True)
     
     if results['success']:
-        print(f"\n🎉 Robust optimization completed!")
-        print(f"📊 Best robust cost: {results['best_cost']:.1f}")
-        print(f"🌱 Trained on {len(results['robustness']['training_seeds'])} seeds")
+        print(f"\n Robust optimization completed!")
+        print(f" Best robust cost: {results['best_cost']:.1f}")
+        print(f" Trained on {len(results['robustness']['training_seeds'])} seeds")
     else:
-        print(f"\n❌ Robust optimization failed: {results.get('error')}")
+        print(f"\n Robust optimization failed: {results.get('error')}")

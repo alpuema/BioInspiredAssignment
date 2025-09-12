@@ -1,11 +1,11 @@
-"""
+﻿"""
 Simplified Traffic Pattern Generation for SUMO
 
 This module provides clean, easy-to-understand traffic pattern generation
 with different modes (random, commuter, commercial, etc.) and proper
 seed support for reproducible results.
 
-Author: Traffic Optimization System  
+Author: Alfonso Rato 
 Date: August 2025
 """
 
@@ -84,7 +84,7 @@ def generate_network_and_routes(grid_size, n_vehicles, sim_time, pattern='commut
     sumocfg_file = os.path.join(output_dir, f'grid_{grid_size}x{grid_size}.sumocfg')
     vtype_file = os.path.join(output_dir, 'vtype.add.xml')
     
-    print(f"🏗️  Generating {grid_size}x{grid_size} grid with {n_vehicles} vehicles ({pattern} pattern)")
+    print(f"Generating {grid_size}x{grid_size} grid with {n_vehicles} vehicles ({pattern} pattern)")
     
     try:
         # Generate network
@@ -130,7 +130,7 @@ def generate_network_and_routes(grid_size, n_vehicles, sim_time, pattern='commut
         }
         
     except Exception as e:
-        print(f"❌ Error generating scenario: {e}")
+        print(f"Error generating scenario: {e}")
         return {'success': False, 'error': str(e)}
 
 
@@ -183,14 +183,14 @@ def generate_grid_network(grid_size, output_file):
         ], capture_output=True, text=True)
         
         if result.returncode == 0:
-            print(f"   ✅ Network generated: {output_file}")
+            print(f"Network generated: {output_file}")
             return True
         else:
-            print(f"   ❌ Network generation failed: {result.stderr}")
+            print(f"Network generation failed: {result.stderr}")
             return False
             
     except Exception as e:
-        print(f"   ❌ Error generating network: {e}")
+        print(f"Error generating network: {e}")
         return False
 
 def generate_traffic_pattern(net_file, trips_file, n_vehicles, sim_time, pattern_config, seed):
@@ -199,7 +199,7 @@ def generate_traffic_pattern(net_file, trips_file, n_vehicles, sim_time, pattern
         # Parse network to get available edges
         edges = get_network_edges(net_file)
         if len(edges) < 2:
-            print(f"   ❌ Insufficient edges found: {len(edges)}")
+            print(f"Insufficient edges found: {len(edges)}")
             return False
         
         # Categorize edges by location
@@ -232,11 +232,11 @@ def generate_traffic_pattern(net_file, trips_file, n_vehicles, sim_time, pattern
         
         # Write trips file
         write_trips_file(trips_file, trips)
-        print(f"   ✅ Generated {n_vehicles} trips: {trips_file}")
+        print(f"Generated {n_vehicles} trips: {trips_file}")
         return True
         
     except Exception as e:
-        print(f"   ❌ Error generating traffic pattern: {e}")
+        print(f"Error generating traffic pattern: {e}")
         return False
 
 def get_network_edges(net_file):
@@ -255,7 +255,7 @@ def get_network_edges(net_file):
         return edges
         
     except Exception as e:
-        print(f"   ⚠️  Error parsing network: {e}")
+        print(f"Error parsing network: {e}")
         return []
 
 def categorize_edges(edges):
@@ -572,14 +572,14 @@ def convert_trips_to_routes(net_file, trips_file, route_file):
         if result.returncode == 0:
             # Sort route file by departure time (SUMO requires this)
             sort_route_file_by_departure_time(route_file)
-            print(f"   ✅ Routes generated: {route_file}")
+            print(f"Routes generated: {route_file}")
             return True
         else:
-            print(f"   ❌ Route generation failed: {result.stderr}")
+            print(f"Route generation failed: {result.stderr}")
             return False
             
     except Exception as e:
-        print(f"   ❌ Error converting trips to routes: {e}")
+        print(f"Error converting trips to routes: {e}")
         return False
 
 def sort_route_file_by_departure_time(route_file):
@@ -606,10 +606,10 @@ def sort_route_file_by_departure_time(route_file):
         
         # Write sorted file
         tree.write(route_file, xml_declaration=True, encoding='UTF-8')
-        print(f"   ✅ Route file sorted by departure time")
+        print(f"Route file sorted by departure time")
         
     except Exception as e:
-        print(f"   ⚠️  Warning: Could not sort route file: {e}")
+        print(f"Warning: Could not sort route file: {e}")
         # Don't fail the whole process for this
 
 def create_vehicle_types_file(vtype_file):
@@ -687,11 +687,11 @@ def load_solution(solution_file):
         with open(solution_file, 'r') as f:
             data = json.load(f)
         
-        print(f"📂 Loaded solution: {solution_file}")
+        print(f"Loaded solution: {solution_file}")
         return data
         
     except Exception as e:
-        print(f"❌ Error loading solution: {e}")
+        print(f"Error loading solution: {e}")
         return None
 
 def evaluate_solution_with_new_seed(solution_file, new_seed, n_vehicles=None, sim_time=None):
@@ -721,7 +721,7 @@ def evaluate_solution_with_new_seed(solution_file, new_seed, n_vehicles=None, si
     n_vehicles = n_vehicles or metadata.get('n_vehicles', 30)
     sim_time = sim_time or metadata.get('sim_time', 600)
     
-    print(f"🔄 Re-evaluating solution with new seed {new_seed}")
+    print(f"Re-evaluating solution with new seed {new_seed}")
     
     # Generate new scenario with different seed
     scenario_result = generate_network_and_routes(
@@ -760,7 +760,7 @@ def evaluate_solution_with_new_seed(solution_file, new_seed, n_vehicles=None, si
                 # Average travel time per vehicle
                 avg_time = metrics.get('total_time', 0) / max(metrics.get('vehicles', 1), 1)
                 
-                print(f"   ✅ Evaluation completed:")
+                print(f"   Evaluation completed:")
                 print(f"      • Vehicles: {metrics.get('vehicles', 0)}/{n_vehicles}")
                 print(f"      • Avg travel time: {avg_time:.1f}s")
                 print(f"      • Cost: {cost:.1f}")
@@ -780,7 +780,7 @@ def evaluate_solution_with_new_seed(solution_file, new_seed, n_vehicles=None, si
                 aco_module.SIMULATION_TIME = original_sim_time
             
     except Exception as e:
-        print(f"   ❌ Evaluation failed: {e}")
+        print(f"   Evaluation failed: {e}")
         return {
             'success': False,
             'error': f'Simulation evaluation failed: {e}',
@@ -795,7 +795,7 @@ def evaluate_solution_with_new_seed(solution_file, new_seed, n_vehicles=None, si
 
 def list_available_patterns():
     """List all available traffic patterns."""
-    print("📋 Available Traffic Patterns:")
+    print("Available Traffic Patterns:")
     print("=" * 40)
     
     for name, config in TRAFFIC_PATTERNS.items():
@@ -805,7 +805,7 @@ def list_available_patterns():
 
 if __name__ == "__main__":
     # Example usage
-    print("🧪 Testing traffic pattern generation")
+    print("Testing traffic pattern generation")
     
     result = generate_network_and_routes(
         grid_size=4,
@@ -816,7 +816,7 @@ if __name__ == "__main__":
     )
     
     if result['success']:
-        print("✅ Test successful!")
+        print(" Test successful!")
         print(f"Files generated: {list(result['files'].keys())}")
     else:
-        print(f"❌ Test failed: {result['error']}")
+        print(f" Test failed: {result['error']}")

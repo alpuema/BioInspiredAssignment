@@ -162,7 +162,7 @@ def create_optimization_plot(best_costs, best_metrics_history, paths, show_plot=
     plt.tight_layout()
     plot_path = os.path.join(paths['results'], 'aco_optimization_progress.png')
     plt.savefig(plot_path, dpi=150, bbox_inches='tight')
-    print_progress(f"📊 Optimization plot saved to: {plot_path}")
+    print_progress(f" Optimization plot saved to: {plot_path}")
     
     if should_show:
         plt.show()
@@ -206,7 +206,7 @@ def analyze_traffic_light_phases(net_file):
         return phase_types, phase_durations
 
     except Exception as e:
-        print_progress(f"⚠️  Error analyzing phases: {e}")
+        print_progress(f"  Error analyzing phases: {e}")
         # Fallback: assume alternating green/yellow
         n_phases = 8  # Default assumption
         phase_types = [i % 2 == 0 for i in range(n_phases)]  # Alternating
@@ -371,7 +371,7 @@ def launch_sumo_gui_with_solution(best_solution, net_file, route_file, paths):
         paths: Project paths dictionary
     """
     try:
-        print_progress("🖥️  Preparing SUMO GUI with optimized solution...")
+        print_progress("  Preparing SUMO GUI with optimized solution...")
         
         # Import sumolib for GUI binary check
         import sumolib
@@ -413,16 +413,16 @@ def launch_sumo_gui_with_solution(best_solution, net_file, route_file, paths):
                 raise FileNotFoundError("SUMO GUI binary not found")
         
         # Launch SUMO GUI
-        print_progress(f"🚀 Launching SUMO GUI with optimized solution...")
+        print_progress(f" Launching SUMO GUI with optimized solution...")
         print_progress(f"   Network: {os.path.basename(gui_net_file)}")
         print_progress(f"   Config: {os.path.basename(gui_cfg_file)}")
-        print_progress(f"   💡 Use the play button in SUMO GUI to start the simulation!")
+        print_progress(f"    Use the play button in SUMO GUI to start the simulation!")
         
         subprocess.Popen([sumo_gui, '-c', gui_cfg_file])
         
         # Give user instructions
         print_progress("")
-        print_progress("🎮 SUMO GUI Controls:")
+        print_progress(" SUMO GUI Controls:")
         print_progress("   • Click the Play button (►) to start simulation")
         print_progress("   • Use + and - to zoom in/out")
         print_progress("   • Right-click on intersections to see traffic light phases")
@@ -433,8 +433,8 @@ def launch_sumo_gui_with_solution(best_solution, net_file, route_file, paths):
         return True
         
     except Exception as e:
-        print_progress(f"❌ Failed to launch SUMO GUI: {e}")
-        print_progress("💡 Manual launch instructions:")
+        print_progress(f" Failed to launch SUMO GUI: {e}")
+        print_progress(" Manual launch instructions:")
         print_progress(f"   1. Open command prompt in project directory")
         print_progress(f"   2. Run: sumo-gui -c results/optimized_solution.sumocfg")
         print_progress(f"   3. Click play to see your optimized traffic lights!")
@@ -519,7 +519,7 @@ def evaluate_solution(solution, net_file, route_file, temp_dir):
         
         # Debug: Check if simulation had errors
         if result.returncode != 0:
-            print_progress(f"   ⚠️  SUMO simulation failed with return code {result.returncode}")
+            print_progress(f"     SUMO simulation failed with return code {result.returncode}")
             if result.stderr:
                 print_progress(f"   SUMO stderr: {result.stderr[:200]}")
         
@@ -529,17 +529,17 @@ def evaluate_solution(solution, net_file, route_file, temp_dir):
             # Debug: Show vehicle completion info
             vehicles_completed = metrics.get('vehicles', 0)
             if vehicles_completed == 0:
-                print_progress(f"   ⚠️  No vehicles completed in tripinfo file")
+                print_progress(f"     No vehicles completed in tripinfo file")
                 # Check file size to see if it's empty
                 file_size = os.path.getsize(temp_tripinfo_file)
                 print_progress(f"   Tripinfo file size: {file_size} bytes")
             elif vehicles_completed < N_VEHICLES:
-                print_progress(f"   ⚠️  Only {vehicles_completed}/{N_VEHICLES} vehicles completed")
+                print_progress(f"     Only {vehicles_completed}/{N_VEHICLES} vehicles completed")
                 # Check SUMO output for clues about missing vehicles
                 if result.stderr and ("teleport" in result.stderr.lower() or "collision" in result.stderr.lower()):
                     print_progress(f"   SUMO issues detected: {result.stderr[:100]}...")
         else:
-            print_progress(f"   ⚠️  Tripinfo file not created: {temp_tripinfo_file}")
+            print_progress(f"     Tripinfo file not created: {temp_tripinfo_file}")
             metrics = {'total_time': float('inf'), 'max_stop': 0, 'vehicles': 0}
         
         # Cleanup temporary files
@@ -550,7 +550,7 @@ def evaluate_solution(solution, net_file, route_file, temp_dir):
         return metrics
         
     except Exception as e:
-        print_progress(f"   ❌ Evaluation error: {e}")
+        print_progress(f"    Evaluation error: {e}")
         return {'total_time': float('inf'), 'max_stop': 0, 'vehicles': 0}
 
 def apply_solution_to_network(net_file, solution):
@@ -569,7 +569,7 @@ def apply_solution_to_network(net_file, solution):
         tree.write(net_file, xml_declaration=True, encoding='UTF-8')
         
     except Exception as e:
-        print_progress(f"   ⚠️  Error applying solution: {e}")
+        print_progress(f"     Error applying solution: {e}")
 
 def create_sumo_config(cfg_file, net_file, route_file, tripinfo_file, sim_time=None):
     """Create SUMO configuration file."""
@@ -629,7 +629,7 @@ def parse_tripinfo_file(tripinfo_file):
 
         # Debug info: show which vehicles completed
         if vehicle_count < N_VEHICLES:
-            print_progress(f"   ⚠️  Only {vehicle_count}/{N_VEHICLES} vehicles completed")
+            print_progress(f"     Only {vehicle_count}/{N_VEHICLES} vehicles completed")
             # Show some completed IDs for debugging
             if len(completed_vehicle_ids) > 0:
                 sample_ids = completed_vehicle_ids[:5]  # Show first 5
@@ -647,7 +647,7 @@ def parse_tripinfo_file(tripinfo_file):
         }
         
     except Exception as e:
-        print_progress(f"   ⚠️  Error parsing tripinfo: {e}")
+        print_progress(f"     Error parsing tripinfo: {e}")
         return {'total_time': float('inf'), 'max_stop': 0, 'vehicles': 0}
 
 def calculate_cost(metrics):
@@ -744,7 +744,7 @@ def evaluate_baseline_comparison(best_solution, phase_types, net_file, route_fil
     Returns:
         Dictionary with comparison results
     """
-    print_progress("📊 Evaluating baseline comparison...")
+    print_progress(" Evaluating baseline comparison...")
     
     # Create baseline solution (30s green, 4s yellow)
     baseline_solution = create_baseline_solution(phase_types, green_duration=30, yellow_duration=4)
@@ -790,11 +790,11 @@ def evaluate_baseline_comparison(best_solution, phase_types, net_file, route_fil
     print_progress(f"   Optimized solution: Cost = {optimized_cost:.1f}")
     
     if improvement_percent > 0:
-        print_progress(f"   ✅ Improvement: {improvement_percent:.1f}% better ({absolute_improvement:.1f} cost units)")
+        print_progress(f"    Improvement: {improvement_percent:.1f}% better ({absolute_improvement:.1f} cost units)")
     elif improvement_percent < 0:
-        print_progress(f"   ❌ Degradation: {abs(improvement_percent):.1f}% worse ({abs(absolute_improvement):.1f} cost units)")
+        print_progress(f"    Degradation: {abs(improvement_percent):.1f}% worse ({abs(absolute_improvement):.1f} cost units)")
     else:
-        print_progress(f"   ➖ No significant difference")
+        print_progress(f"    No significant difference")
     
     return comparison_results
 
@@ -830,7 +830,7 @@ def extract_files_from_sumo_config(sumo_config_file):
         return net_file, route_file
         
     except Exception as e:
-        print_progress(f"⚠️  Error parsing SUMO config: {e}")
+        print_progress(f"  Error parsing SUMO config: {e}")
         return None, None
 
 def run_traditional_aco_optimization(config=None, show_plots_override=None, show_gui_override=None, compare_baseline=True, sumo_config_file=None):
@@ -876,7 +876,7 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
     
     paths = get_project_paths()
     
-    print_progress(f"📋 Configuration:")
+    print_progress(f" Configuration:")
     print_progress(f"   Grid: {GRID_SIZE}x{GRID_SIZE}, Vehicles: {N_VEHICLES}, Time: {SIMULATION_TIME}s")
     print_progress(f"   ACO: {N_ANTS} ants × {N_ITERATIONS} iterations")
     print_progress(f"   Constraints: Green {GREEN_MIN_DURATION}-{GREEN_MAX_DURATION}s, Yellow {YELLOW_MIN_DURATION}-{YELLOW_MAX_DURATION}s")
@@ -888,7 +888,7 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
         
         # If SUMO config file is provided, extract file paths from it
         if sumo_config_file and os.path.exists(sumo_config_file):
-            print_progress(f"📁 Using SUMO config: {os.path.basename(sumo_config_file)}")
+            print_progress(f" Using SUMO config: {os.path.basename(sumo_config_file)}")
             net_file, route_file = extract_files_from_sumo_config(sumo_config_file)
         
         # Fallback to default file path logic if no config provided or extraction failed
@@ -901,15 +901,15 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
                     route_file = alt
 
         if not os.path.exists(net_file):
-            print_progress("❌ Network file not found. Please generate scenario first.")
+            print_progress(" Network file not found. Please generate scenario first.")
             return {'success': False, 'error': 'Missing network files'}
             
         if not os.path.exists(route_file):
-            print_progress(f"❌ Route file not found: {route_file}")
+            print_progress(f" Route file not found: {route_file}")
             return {'success': False, 'error': 'Missing route file'}
             
-        print_progress(f"📁 Using network file: {os.path.basename(net_file)}")
-        print_progress(f"📁 Using route file: {os.path.basename(route_file)}")
+        print_progress(f" Using network file: {os.path.basename(net_file)}")
+        print_progress(f" Using route file: {os.path.basename(route_file)}")
 
         # Analyze traffic light phases
         phase_types, default_durations = analyze_traffic_light_phases(net_file)
@@ -931,7 +931,7 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
         global_best_solution = None
         global_best_metrics = None
 
-        print_progress("🔄 Starting optimization iterations...")
+        print_progress(" Starting optimization iterations...")
         start_time = time.time()
 
         # Main ACO loop
@@ -966,7 +966,7 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
                     global_best_cost = cost
                     global_best_solution = solution.copy()
                     global_best_metrics = metrics
-                    print_progress(f"   🌟 NEW GLOBAL BEST: Ant {ant+1}, cost: {cost:.1f}")
+                    print_progress(f"   *** NEW GLOBAL BEST: Ant {ant+1}, cost: {cost:.1f}")
 
                 completion = metrics.get('vehicles', 0)
                 if completion > 0:
@@ -995,7 +995,7 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
                 overall_best_metrics = iteration_best_metrics
 
         duration = time.time() - start_time
-        print_progress(f"✅ Optimization completed in {duration:.1f} seconds")
+        print_progress(f" Optimization completed in {duration:.1f} seconds")
 
         # Baseline comparison if requested
         baseline_comparison = None
@@ -1027,12 +1027,12 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
         }
         
     except Exception as e:
-        print_progress(f"❌ Optimization failed: {e}")
+        print_progress(f" Optimization failed: {e}")
         return {'success': False, 'error': str(e)}
 
 if __name__ == "__main__":
     results = run_traditional_aco_optimization()
     if results['success']:
-        print(f"\n🎉 Best cost achieved: {results['best_cost']:.1f}")
+        print(f"\n Best cost achieved: {results['best_cost']:.1f}")
     else:
-        print(f"\n❌ Optimization failed: {results.get('error', 'Unknown error')}")
+        print(f"\n Optimization failed: {results.get('error', 'Unknown error')}")
