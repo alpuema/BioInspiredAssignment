@@ -30,20 +30,6 @@ This provides a guided interface with:
 - Sensitivity Analysis (find optimal settings)
 - Learning Resources (understand the system)
 
-### Main Optimization Tool
-
-Run the complete optimization with visualization:
-```bash
-python main.py
-```
-
-### Quick Demonstration
-
-For a guided demonstration of key features:
-```bash
-python examples/quick_start.py
-```
-
 ### Interactive Configuration
 
 For advanced users who want detailed control:
